@@ -1,3 +1,5 @@
 <template>
-  <div><p>This is an Issue</p></div>
+  <div>
+    <p>This is an Issue{{ $route.params.number }}</p>
+  </div>
 </template>
