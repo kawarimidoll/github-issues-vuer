@@ -5,7 +5,7 @@
     <div v-else>
       <h2>{{ issue.number }}: {{ issue.title }}</h2>
       <div className="text-right mr-2">
-        <!-- <Link :to="issue.html_url">view in GitHub</Link> -->
+        <EzLink :to="issue.html_url">view in GitHub</EzLink>
       </div>
       <hr />
       <div v-html="compileMarkdown"></div>
@@ -18,9 +18,12 @@ import markdownit from "markdown-it";
 import sanitizer from "markdown-it-sanitizer";
 import emoji from "markdown-it-emoji";
 
+import EzLink from "../components/EzLink.vue";
+
 const API_URL = "http://api.github.com/repos/facebook/react/issues/";
 
 export default {
+  components: { EzLink },
   props: ["number"],
   data: function () {
     const md = new markdownit({
