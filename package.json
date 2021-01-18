@@ -10,7 +10,8 @@
     "lint:fix": "eslint --fix"
   },
   "lint-staged": {
-    "*.{js,vue}": "eslint"
+    "*.{js,vue}": "eslint",
+    "*.{json,md,yml}": "prettier --write"
   },
   "husky": {
     "hooks": {
