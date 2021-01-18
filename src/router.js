@@ -9,7 +9,7 @@ const history = createWebHistory();
 
 const routes = [
   { path: "/", template: '<router-link to="/issues">Enter</router-link>' },
-  { path: "/issues/:number", component: Issue },
+  { path: "/issues/:number", component: Issue, props: true },
   { path: "/issues", component: Issues },
   { path: "/:pathMatch(.*)*", component: NotFound },
 ];
