@@ -8,20 +8,34 @@
         <!-- <Link :to="issue.html_url">view in GitHub</Link> -->
       </div>
       <hr />
-      {{ issue.body }}
+      <div v-html="compileMarkdown"></div>
     </div>
   </div>
 </template>
 
 <script>
+import markdownit from "markdown-it";
+import sanitizer from "markdown-it-sanitizer";
+import emoji from "markdown-it-emoji";
+
 const API_URL = "http://api.github.com/repos/facebook/react/issues/";
 
 export default {
   props: ["number"],
   data: function () {
+    const md = new markdownit({
+      html: true,
+      linkify: true,
+      breaks: true,
+      typographer: true,
+    })
+      .use(sanitizer)
+      .use(emoji);
+
     return {
       issue: {},
       loading: true,
+      markdownit: md,
     };
   },
   created: function () {
@@ -29,11 +43,8 @@ export default {
   },
   watch: { number: "fetchData" },
   computed: {
-    next() {
-      return `/issues/${Number(this.number) + 1}`;
-    },
-    prev() {
-      return `/issues/${Number(this.number) - 1}`;
+    compileMarkdown() {
+      return this.markdownit.render(this.issue.body);
     },
   },
   methods: {
