@@ -46,9 +46,10 @@ export default {
       return enable ? "router-link" : "span";
     },
     getClass(enable) {
-      return "block px-2 border border-solid border-transparent" + enable
-        ? " hover:border-black"
-        : " text-gray-400 cursor-not-allowed";
+      return (
+        "block px-2 border border-solid border-transparent" +
+        (enable ? " hover:border-black" : " text-gray-400 cursor-not-allowed")
+      );
     },
   },
 };

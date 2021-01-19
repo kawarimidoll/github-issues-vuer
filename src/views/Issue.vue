@@ -4,11 +4,11 @@
     <div v-else-if="!issue || !issue.id">issue not found</div>
     <div v-else>
       <h2>{{ issue.number }}: {{ issue.title }}</h2>
-      <div className="text-right mr-2">
+      <div class="text-right mr-2">
         <EzLink :to="issue.html_url">view in GitHub</EzLink>
       </div>
       <hr />
-      <div v-html="compileMarkdown"></div>
+      <div class="markdown-body" v-html="compileMarkdown"></div>
     </div>
   </div>
 </template>
