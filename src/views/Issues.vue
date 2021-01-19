@@ -28,7 +28,7 @@ export default {
   components: { Pager },
   data: function () {
     return {
-      page: "1",
+      page: 1,
       issues: [],
       loading: true,
       issuesCount: 1,
@@ -47,7 +47,7 @@ export default {
   methods: {
     fetchData() {
       this.loading = true;
-      this.page = this.$route.query?.page || "1";
+      this.page = Number(this.$route.query?.page) || 1,
       fetch(`${API_URL}/issues?per_page=${perPage}&page=${this.page}`)
         .then((res) => {
           if (!res.ok) {

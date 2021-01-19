@@ -24,7 +24,9 @@ const API_URL = "https://api.github.com/repos/facebook/react/issues/";
 
 export default {
   components: { EzLink },
-  props: ["number"],
+  props: {
+    number: { type: String, required: true },
+  },
   data: function () {
     const md = new markdownit({
       html: true,
@@ -61,7 +63,6 @@ export default {
           return res.json();
         })
         .then((json) => {
-          console.log(json);
           this.issue = json;
           this.loading = false;
         })

@@ -37,7 +37,7 @@
 <script>
 export default {
   props: {
-    current: { type: String, required: true },
+    current: { type: Number, required: true },
     max: { type: Number, required: true },
     getPath: { type: Function, required: true },
   },
