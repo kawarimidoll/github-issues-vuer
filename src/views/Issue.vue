@@ -20,7 +20,7 @@ import emoji from "markdown-it-emoji";
 
 import EzLink from "../components/EzLink.vue";
 
-const API_URL = "http://api.github.com/repos/facebook/react/issues/";
+const API_URL = "https://api.github.com/repos/facebook/react/issues/";
 
 export default {
   components: { EzLink },

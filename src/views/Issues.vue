@@ -22,7 +22,7 @@
 import Pager from "../components/Pager.vue";
 const perPage = 10;
 
-const API_URL = `http://api.github.com/repos/facebook/react/issues?per_page=${perPage}&page=`;
+const API_URL = `https://api.github.com/repos/facebook/react`;
 
 export default {
   components: { Pager },
@@ -31,7 +31,7 @@ export default {
       page: "1",
       issues: [],
       loading: true,
-      issuesCount: 100,
+      issuesCount: 1,
       getPath: (num) => `/issues?page=${num}`,
     };
   },
@@ -48,7 +48,7 @@ export default {
     fetchData() {
       this.loading = true;
       this.page = this.$route.query?.page || "1";
-      fetch(`${API_URL}${this.page}`)
+      fetch(`${API_URL}/issues?per_page=${perPage}&page=${this.page}`)
         .then((res) => {
           if (!res.ok) {
             throw new Error(res.statusText);
@@ -57,7 +57,21 @@ export default {
         })
         .then((json) => {
           this.issues = json;
-          this.loading = false;
+        })
+        .then(() => {
+          fetch(`${API_URL}`)
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error(res.statusText);
+              }
+              return res.json();
+            })
+            .then((json) => {
+              this.issuesCount = json.open_issues_count;
+            })
+            .then(() => {
+              this.loading = false;
+            });
         })
         .catch((err) => {
           console.warn(err);
