@@ -12,22 +12,27 @@
             </router-link>
           </li>
         </ul>
-        <!-- <Pager :current="page" :max="maxPage" :getPath="getPath" /> -->
+        <Pager :current="page" :max="maxPages" :getPath="getPath" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-const API_URL =
-  "http://api.github.com/repos/facebook/react/issues?per_page=10&page=";
+import Pager from "../components/Pager.vue";
+const perPage = 10;
+
+const API_URL = `http://api.github.com/repos/facebook/react/issues?per_page=${perPage}&page=`;
 
 export default {
+  components: { Pager },
   data: function () {
     return {
       page: "1",
       issues: [],
       loading: true,
+      issuesCount: 100,
+      getPath: (num) => `/issues?page=${num}`,
     };
   },
   created: function () {
@@ -35,11 +40,8 @@ export default {
   },
   watch: { "$route.query.page": "fetchData" },
   computed: {
-    next() {
-      return `/issues?page=${Number(this.page) + 1}`;
-    },
-    prev() {
-      return `/issues?page=${Number(this.page) - 1}`;
+    maxPages() {
+      return Math.ceil(this.issuesCount / perPage);
     },
   },
   methods: {
